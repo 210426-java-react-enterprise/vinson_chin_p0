@@ -2,6 +2,7 @@ package com.revature.vinson_chin_p0.screens;
 
 import com.revature.vinson_chin_p0.daos.UserDAO;
 import com.revature.vinson_chin_p0.models.AppUser;
+import com.revature.vinson_chin_p0.util.ScreenRouter;
 
 import java.io.BufferedReader;
 
@@ -9,10 +10,12 @@ public class LoginScreen extends Screen {
 
     private UserDAO userDao = new UserDAO();
     private BufferedReader consoleReader;
+    private ScreenRouter router;
 
-    public LoginScreen(BufferedReader consoleReader) {
+    public LoginScreen(BufferedReader consoleReader, ScreenRouter router) {
         super("LoginScreen", "/login");
         this.consoleReader = consoleReader;
+        this.router = router;
     }
 
     public void render() {
@@ -34,8 +37,16 @@ public class LoginScreen extends Screen {
                 AppUser authenticatedUser = userDao.findUserByUsernameAndPassword(username, password);
                 if (authenticatedUser != null) {
                     System.out.println("Login successful!");
+                    router.navigate("/dashboard");
+
                 } else {
                     System.out.println("Login failed!");
+
+                    /*
+                        The below code is not necessary, because if the login fails, we will fall
+                        out of this method
+                     */
+                    router.navigate("/welcome");
                 }
             } else {
                 System.out.println("It looks like you didn't provide any credentials!");

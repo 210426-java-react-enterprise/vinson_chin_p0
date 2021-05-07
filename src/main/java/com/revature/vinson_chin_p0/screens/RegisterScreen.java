@@ -1,18 +1,26 @@
 package com.revature.vinson_chin_p0.screens;
 
 import com.revature.vinson_chin_p0.daos.UserDAO;
+import com.revature.vinson_chin_p0.exceptions.InvalidRequestException;
+import com.revature.vinson_chin_p0.exceptions.ResourcePersistenceException;
 import com.revature.vinson_chin_p0.models.AppUser;
+import com.revature.vinson_chin_p0.services.UserService;
+import com.revature.vinson_chin_p0.util.ScreenRouter;
 
 import java.io.BufferedReader;
+import java.util.regex.Pattern;
 
 public class RegisterScreen extends Screen {
 
-    private UserDAO userDao = new UserDAO(); // ok for now, but actually gross -- fix later
+    private UserService userService;
     private BufferedReader consoleReader;
+    private ScreenRouter router;
 
-    public RegisterScreen(BufferedReader consoleReader) {
+    public RegisterScreen(BufferedReader consoleReader, ScreenRouter router, UserService userService) {
         super("RegisterScreen", "/register");
         this.consoleReader = consoleReader;
+        this.userService = userService;
+        this.router = router;
     }
 
     public void render() {
@@ -22,26 +30,33 @@ public class RegisterScreen extends Screen {
         String email;
         String username;
         String password;
-        int age;
+        String dob;
+        int phone;
+        String address;
+        String city;
+        String country;
+        int zipcode;
 
-        // ok but a little verbose
-//        InputStreamReader inputStreamReader = new InputStreamReader(System.in);
-//        BufferedReader consoleReader = new BufferedReader(inputStreamReader);
 
         try {
             // risky code that might through an exception
 
-            System.out.println("Register for a new account!");
-            System.out.println("+-------------------------+");
+            System.out.println("New Account Registration");
+            System.out.println("The following information is required");
 
             System.out.print("First name: ");
-            firstName = consoleReader.readLine(); // throws Exception here
+            firstName = consoleReader.readLine();
 
             System.out.print("Last name: ");
             lastName = consoleReader.readLine();
 
             System.out.print("Email: ");
             email = consoleReader.readLine();
+            while (Pattern.matches("[a-zA-Z]\\w*@[a-zA-Z].[a-zA-Z]*", email) == false) {
+                System.out.println("Not a valid email");
+                System.out.print("Re-enter email: ");
+                email = consoleReader.readLine();
+            };
 
             System.out.print("Username: ");
             username = consoleReader.readLine();
@@ -49,19 +64,25 @@ public class RegisterScreen extends Screen {
             System.out.print("Password: ");
             password = consoleReader.readLine();
 
-            System.out.print("Age: ");
-            age = Integer.parseInt(consoleReader.readLine());
+            System.out.print("Birthday(YYYY-MM-DD): ");
+            dob = consoleReader.readLine();
+            while (Pattern.matches("\\d{4}-\\d\\d-\\d\\d", dob) == false) {
+                System.out.println("Not a valid date");
+                System.out.print("Re-enter birthday: ");
+                dob = consoleReader.readLine();
+            }
 
-            AppUser newUser = new AppUser(username, password, email, firstName, lastName, age);
-            userDao.save(newUser);
+            AppUser newUser = new AppUser(username, password, email, firstName, lastName, dob);
+            userService.register(newUser);
 
         } catch (NumberFormatException nfe) {
             // do something about these!
             System.err.println("You provided an incorrect value for your age! Please try again!");
-            this.render(); // this breaks some stuff! we will need to fix this
+            this.render();
+        } catch (InvalidRequestException | ResourcePersistenceException e) {
+            e.printStackTrace();
         } catch (Exception e) {
-            e.printStackTrace(); // include this line while developing/debugging the app!
-            // should be logged to a file in a production environment
+            e.printStackTrace();
         }
 
 

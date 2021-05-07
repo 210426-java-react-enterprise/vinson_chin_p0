@@ -18,20 +18,25 @@ public class AppUser {
     private String email;
     private String firstName; // variables should be in camelCase
     private String lastName;
-    private int age;
+    private String dob;
 
     public AppUser() {
         super();
     }
 
-    public AppUser(String username, String password, String email, String firstName, String lastName, int age) {
+    public AppUser(String username, String password, String email, String firstName, String lastName, String dob) {
         System.out.println("AppUser constructor invoked!");
         this.username = username;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.age = age;
+        this.dob = dob;
+    }
+
+    public AppUser(int id, String username, String password, String email, String firstName, String lastName, String dob) {
+        this(username, password, email, firstName, lastName, dob);
+        this.id = id;
     }
 
     public int getId() {
@@ -85,16 +90,8 @@ public class AppUser {
         this.lastName = lastName;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public String toFileString() {
-        return String.format("%s;%s;%s;%s;%s;%d", username, password, email, firstName, lastName, age);
+        return String.format("%s;%s;%s;%s;%s;%d", username, password, email, firstName, lastName);
     }
 
 //    @Override
@@ -113,12 +110,12 @@ public class AppUser {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("AppUser{");
-        sb.append("username='").append(username).append('\'');
+        sb.append("id=").append(id);
+        sb.append(", username='").append(username).append('\'');
         sb.append(", password='").append(password).append('\'');
         sb.append(", email='").append(email).append('\'');
         sb.append(", firstName='").append(firstName).append('\'');
         sb.append(", lastName='").append(lastName).append('\'');
-        sb.append(", age=").append(age);
         sb.append('}');
         return sb.toString();
     }

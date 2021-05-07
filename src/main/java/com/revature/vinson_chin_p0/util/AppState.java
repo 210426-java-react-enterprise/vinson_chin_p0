@@ -4,6 +4,7 @@ import com.revature.vinson_chin_p0.daos.UserDAO;
 import com.revature.vinson_chin_p0.screens.LoginScreen;
 import com.revature.vinson_chin_p0.screens.RegisterScreen;
 import com.revature.vinson_chin_p0.screens.WelcomeScreen;
+import com.revature.vinson_chin_p0.services.UserService;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -21,11 +22,13 @@ public class AppState {
         consoleReader = new BufferedReader(new InputStreamReader(System.in));
 
         final UserDAO userDao = new UserDAO();
+        final UserService userService = new UserService(userDao);
 
         router = new ScreenRouter();
         router.addScreen(new WelcomeScreen(consoleReader, router))
-              .addScreen(new LoginScreen(consoleReader))
-              .addScreen(new RegisterScreen(consoleReader));
+                .addScreen(new LoginScreen(consoleReader, router))
+                .addScreen(new RegisterScreen(consoleReader, router, userService));
+
 
         System.out.println("Application initialized!");
     }

@@ -19,7 +19,8 @@ public class WelcomeScreen extends Screen {
     @Override
     public void render() {
 
-        System.out.println("Welcome to Quizzard!");
+        System.out.println("Welcome to your Banking Application");
+        System.out.println("What would you like to do?");
         System.out.println("1) Login");
         System.out.println("2) Register");
         System.out.println("3) Exit application");
@@ -39,8 +40,6 @@ public class WelcomeScreen extends Screen {
                     break;
                 case "3":
                     System.out.println("Exiting application!");
-                    // we need to figure out how to tell the app the shutdown
-//                    System.exit(0); // very bad practice; force closes the JVM
                     app().setAppRunning(false);
                     break;
                 default:
