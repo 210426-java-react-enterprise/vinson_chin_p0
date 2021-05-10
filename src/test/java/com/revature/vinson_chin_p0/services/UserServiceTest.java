@@ -33,8 +33,8 @@ public class UserServiceTest {
     public void test_registerWithValidUserAndAvailableUsernameAndPassword() {
 
         // Arrange
-        AppUser validUser = new AppUser(0, "un", "pw", "email", "fn", "ln", "");
-        AppUser expectedResult = new AppUser(1, "un", "pw", "email", "fn", "ln", "");
+        AppUser validUser = new AppUser(0, "un", "pw", "email", "fn", "ln", "1231-56-46", 21356);
+        AppUser expectedResult = new AppUser(1, "un", "pw", "email", "fn", "ln", "1828-12-54", 132132);
         when(mockUserDao.isUsernameAvailable(anyString())).thenReturn(true);
         when(mockUserDao.isEmailAvailable(anyString())).thenReturn(true);
         when(mockUserDao.save(validUser)).thenReturn(expectedResult);
@@ -56,7 +56,7 @@ public class UserServiceTest {
 
         // Act
         try {
-            sut.register(new AppUser(0, "sdf", "pw", "email", "fn", "ln", ""));
+            sut.register(new AppUser(0, "sdf", "pw", "email", "fn", "ln", "2021-12-25", 1213156));
         } catch (Exception e) {
             assertTrue(e instanceof ResourcePersistenceException);
         } finally {
@@ -75,7 +75,7 @@ public class UserServiceTest {
 
         // Act
         try {
-            sut.register(new AppUser(0, "un", "pw", "taken-email", "fn", "ln", ""));
+            sut.register(new AppUser(0, "un", "pw", "taken-email", "fn", "ln", "2151-05-20", 123549494));
         } catch (Exception e) {
             assertTrue(e instanceof ResourcePersistenceException);
         } finally {
@@ -90,7 +90,7 @@ public class UserServiceTest {
     @Test(expected = InvalidRequestException.class)
     public void test_registerWithInvalidUser() {
         // Arrange
-        AppUser invalidUser = new AppUser("", "", "", "", "", "");
+        AppUser invalidUser = new AppUser("", "", "", "", "", "", 123116456);
 
         // Act
         sut.register(invalidUser);

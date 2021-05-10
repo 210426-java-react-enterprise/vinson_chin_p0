@@ -32,11 +32,6 @@ public class RegisterScreen extends Screen {
         String password;
         String dob;
         int phone;
-        String address;
-        String city;
-        String country;
-        int zipcode;
-
 
         try {
             // risky code that might through an exception
@@ -72,15 +67,21 @@ public class RegisterScreen extends Screen {
                 dob = consoleReader.readLine();
             }
 
-            AppUser newUser = new AppUser(username, password, email, firstName, lastName, dob);
+            System.out.println("Your Phone Number is Optional");
+            System.out.print("Phone Number (Just Numbers or blank): ");
+            phone = Integer.parseInt(consoleReader.readLine());
+
+            AppUser newUser = new AppUser(username, password, email, firstName, lastName, dob, phone);
             userService.register(newUser);
+            System.out.println("Registration Successful!");
+            router.navigate("/welcome");
 
         } catch (NumberFormatException nfe) {
-            // do something about these!
-            System.err.println("You provided an incorrect value for your age! Please try again!");
+            System.err.println("Not a Valid Phone Number! Please try again!");
             this.render();
         } catch (InvalidRequestException | ResourcePersistenceException e) {
-            e.printStackTrace();
+            System.err.println(e);
+            this.render();
         } catch (Exception e) {
             e.printStackTrace();
         }

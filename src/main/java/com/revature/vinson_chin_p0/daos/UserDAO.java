@@ -14,13 +14,15 @@ public class UserDAO {
 
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
-            String sqlInsertUser = "insert into quizzard.users (username , password , email , first_name , last_name , age ) values (?,?,?,?,?,?)";
+            String sqlInsertUser = "insert into quizzard.users (username , password , email , first_name , last_name , dob, phone) values (?,?,?,?,?,?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sqlInsertUser, new String[] { "user_id" });
             pstmt.setString(1,newUser.getUsername());
             pstmt.setString(2,newUser.getPassword());
             pstmt.setString(3,newUser.getEmail());
             pstmt.setString(4,newUser.getFirstName());
             pstmt.setString(5,newUser.getLastName());
+            pstmt.setString(6,newUser.getDob());
+            pstmt.setInt(7,newUser.getPhone());
             int rowsInserted = pstmt.executeUpdate();
 
             if (rowsInserted != 0) {

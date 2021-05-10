@@ -19,12 +19,13 @@ public class AppUser {
     private String firstName; // variables should be in camelCase
     private String lastName;
     private String dob;
+    private int phone;
 
     public AppUser() {
         super();
     }
 
-    public AppUser(String username, String password, String email, String firstName, String lastName, String dob) {
+    public AppUser(String username, String password, String email, String firstName, String lastName, String dob, int phone) {
         System.out.println("AppUser constructor invoked!");
         this.username = username;
         this.password = password;
@@ -32,10 +33,11 @@ public class AppUser {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
+        this.phone = phone;
     }
 
-    public AppUser(int id, String username, String password, String email, String firstName, String lastName, String dob) {
-        this(username, password, email, firstName, lastName, dob);
+    public AppUser(int id, String username, String password, String email, String firstName, String lastName, String dob, int phone) {
+        this(username, password, email, firstName, lastName, dob, phone);
         this.id = id;
     }
 
@@ -88,6 +90,22 @@ public class AppUser {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public int getPhone() {
+        return phone;
+    }
+
+    public void setPhone(int phone) {
+        this.phone = phone;
     }
 
     public String toFileString() {

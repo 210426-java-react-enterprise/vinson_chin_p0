@@ -38,7 +38,7 @@ public class UserService {
         if (user.getEmail() == null || user.getEmail().trim().isEmpty() || user.getEmail().length() > 255) return false;
         if (user.getFirstName() == null || user.getFirstName().trim().isEmpty() || user.getFirstName().length() > 25) return false;
         if (user.getLastName() == null || user.getLastName().trim().isEmpty() || user.getLastName().length() > 25) return false;
-
+        if (user.getDob() == null || user.getDob().trim().isEmpty() || user.getDob().length() > 10) return false;
         return true;
     }
 }
