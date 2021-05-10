@@ -46,7 +46,7 @@ public class RegisterScreen extends Screen {
 
             System.out.print("Email: ");
             email = consoleReader.readLine();
-            while (Pattern.matches("[a-zA-Z].*@[a-zA-Z]+\\.[a-zA-Z]+", email) == false) {
+            while (Pattern.matches("[a-zA-Z].*@[a-zA-Z]+[.][a-zA-Z]+", email) == false) {
                 System.out.println("Not a valid email");
                 System.out.print("Re-enter email: ");
                 email = consoleReader.readLine();

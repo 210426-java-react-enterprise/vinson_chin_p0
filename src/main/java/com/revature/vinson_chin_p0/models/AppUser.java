@@ -95,9 +95,9 @@ public class AppUser {
         this.phone = phone;
     }
 
-    public String toFileString() {
-        return String.format("%s;%s;%s;%s;%s;%d", username, password, email, firstName, lastName);
-    }
+//    public String toFileString() {
+//        return String.format("%s;%s;%s;%s;%s;%s;%l", username, password, email, firstName, lastName, dob, phone);
+//    }
 
     @Override
     public String toString() {
@@ -109,7 +109,7 @@ public class AppUser {
         sb.append(", firstName='").append(firstName).append('\'');
         sb.append(", lastName='").append(lastName).append('\'');
         sb.append(", dateOfBirth='").append(dob).append('\'');
-        sb.append(", phone='").append(phone).append('\'');
+        sb.append(", phone='").append(phone);
         sb.append('}');
         return sb.toString();
     }
