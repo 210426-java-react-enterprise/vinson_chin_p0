@@ -1,6 +1,5 @@
 package com.revature.vinson_chin_p0.screens;
 
-import com.revature.vinson_chin_p0.daos.UserDAO;
 import com.revature.vinson_chin_p0.exceptions.InvalidRequestException;
 import com.revature.vinson_chin_p0.exceptions.ResourcePersistenceException;
 import com.revature.vinson_chin_p0.models.AppUser;
@@ -21,9 +20,10 @@ public class RegisterScreen extends Screen {
         this.consoleReader = consoleReader;
         this.userService = userService;
         this.router = router;
+        this.userService = userService;
     }
 
-    public void render() {
+    public void render(AppUser currentUser) {
 
         String firstName;
         String lastName;
@@ -58,28 +58,27 @@ public class RegisterScreen extends Screen {
             System.out.print("Password: ");
             password = consoleReader.readLine();
 
-            System.out.print("Birthday(YYYY-MM-DD): ");
+            System.out.print("Date of Birth(YYYY-MM-DD): ");
             dob = consoleReader.readLine();
             while (Pattern.matches("\\d{4}-\\d\\d-\\d\\d", dob) == false) {
                 System.out.println("Not a valid date");
-                System.out.print("Re-enter birthday: ");
+                System.out.print("Re-enter date: ");
                 dob = consoleReader.readLine();
             }
 
             System.out.print("Phone Number (Just Numbers): ");
             phone = Long.parseLong(consoleReader.readLine());
-            System.out.println(phone);
 
             AppUser newUser = new AppUser(username, password, email, firstName, lastName, dob, phone);
             userService.register(newUser);
-            System.out.println("Registration Successful!");
+            System.out.println("Registration Successful!\n");
 
         } catch (NumberFormatException nfe) {
-            System.err.println("Not a Valid Phone Number! Please try again!");
-            this.render();
+            System.err.println("Not a Valid Phone Number! Please try again!\n");
+            this.render(currentUser);
         } catch (InvalidRequestException | ResourcePersistenceException e) {
-            System.err.println(e);
-            this.render();
+            System.err.println(e + "\n");
+            router.navigate("/welcome");
         } catch (Exception e) {
             e.printStackTrace();
         }

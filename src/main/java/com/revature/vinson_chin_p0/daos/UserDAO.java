@@ -39,6 +39,35 @@ public class UserDAO {
         return newUser;
     }
 
+    public AppUser update(AppUser changedUser) {
+
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+
+            String sqlUpdateUser = "update project0.users set username = ? , password = ? , email = ? , firstname = ? , lastname = ? , dob = ?, phone = ? where id = "+ changedUser.getId();
+            PreparedStatement pstmt = conn.prepareStatement(sqlUpdateUser);
+            pstmt.setString(1,changedUser.getUsername());
+            pstmt.setString(2,changedUser.getPassword());
+            pstmt.setString(3,changedUser.getEmail());
+            pstmt.setString(4,changedUser.getFirstName());
+            pstmt.setString(5,changedUser.getLastName());
+            pstmt.setString(6,changedUser.getDob());
+            pstmt.setLong(7,changedUser.getPhone());
+            int rowsUpdated = pstmt.executeUpdate();
+
+            if (rowsUpdated != 0) {
+                ResultSet rs = pstmt.getGeneratedKeys();
+                while (rs.next()) {
+                    changedUser.setId(rs.getInt("id"));
+                }
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return changedUser;
+    }
+
     public boolean isUsernameAvailable(String username) {
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
@@ -59,12 +88,53 @@ public class UserDAO {
 
     }
 
+    public boolean isUpdatedUsernameAvailable(String username, int id) {
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+
+            String sql = "select * from project0.users where username = ? except select * from project0.users where id = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, username);
+            pstmt.setInt(2, id);
+
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return false;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return true;
+
+    }
+
     public boolean isEmailAvailable(String email) {
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
             String sql = "select * from project0.users where email = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, email);
+
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return false;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
+    public boolean isUpdatedEmailAvailable(String email, int id) {
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+
+            String sql = "select * from project0.users where email = ? except select * from project0.users where id = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, email);
+            pstmt.setInt(2,id);
 
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
