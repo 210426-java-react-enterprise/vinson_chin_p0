@@ -31,10 +31,9 @@ public class RegisterScreen extends Screen {
         String username;
         String password;
         String dob;
-        int phone;
+        long phone;
 
         try {
-            // risky code that might through an exception
 
             System.out.println("New Account Registration");
             System.out.println("The following information is required");
@@ -47,7 +46,7 @@ public class RegisterScreen extends Screen {
 
             System.out.print("Email: ");
             email = consoleReader.readLine();
-            while (Pattern.matches("[a-zA-Z]\\w*@[a-zA-Z].[a-zA-Z]*", email) == false) {
+            while (Pattern.matches("[a-zA-Z].*@[a-zA-Z]+\\.[a-zA-Z]+", email) == false) {
                 System.out.println("Not a valid email");
                 System.out.print("Re-enter email: ");
                 email = consoleReader.readLine();
@@ -67,14 +66,13 @@ public class RegisterScreen extends Screen {
                 dob = consoleReader.readLine();
             }
 
-            System.out.println("Your Phone Number is Optional");
-            System.out.print("Phone Number (Just Numbers or blank): ");
-            phone = Integer.parseInt(consoleReader.readLine());
+            System.out.print("Phone Number (Just Numbers): ");
+            phone = Long.parseLong(consoleReader.readLine());
+            System.out.println(phone);
 
             AppUser newUser = new AppUser(username, password, email, firstName, lastName, dob, phone);
             userService.register(newUser);
             System.out.println("Registration Successful!");
-            router.navigate("/welcome");
 
         } catch (NumberFormatException nfe) {
             System.err.println("Not a Valid Phone Number! Please try again!");
@@ -85,9 +83,6 @@ public class RegisterScreen extends Screen {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
     }
 
 }

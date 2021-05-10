@@ -1,15 +1,5 @@
 package com.revature.vinson_chin_p0.models;
 
-/*
-    Classes must be named the exact same as the file itself!
-
-    Class names should (for best practice) be in PascalCase
-        - not to be confused with camelCase
-
-    POJO = Plain Ol' Java Object
-        - Does not (usually) contain any methods beyond simple getters and setters
-            + maybe the occasional convenience method
- */
 public class AppUser {
 
     private int id;
@@ -19,13 +9,13 @@ public class AppUser {
     private String firstName; // variables should be in camelCase
     private String lastName;
     private String dob;
-    private int phone;
+    private long phone;
 
     public AppUser() {
         super();
     }
 
-    public AppUser(String username, String password, String email, String firstName, String lastName, String dob, int phone) {
+    public AppUser(String username, String password, String email, String firstName, String lastName, String dob, long phone) {
         System.out.println("AppUser constructor invoked!");
         this.username = username;
         this.password = password;
@@ -36,7 +26,7 @@ public class AppUser {
         this.phone = phone;
     }
 
-    public AppUser(int id, String username, String password, String email, String firstName, String lastName, String dob, int phone) {
+    public AppUser(int id, String username, String password, String email, String firstName, String lastName, String dob, long phone) {
         this(username, password, email, firstName, lastName, dob, phone);
         this.id = id;
     }
@@ -50,13 +40,10 @@ public class AppUser {
     }
 
     public String getUsername() {
-        // you do not have to include "this." here because there is no other variable
-        // with the same name in this scope
         return username;
     }
 
     public void setUsername(String username) {
-        // "this." is required here, otherwise you do not target the correct variable
         this.username = username;
     }
 
@@ -100,30 +87,17 @@ public class AppUser {
         this.dob = dob;
     }
 
-    public int getPhone() {
+    public long getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(long phone) {
         this.phone = phone;
     }
 
     public String toFileString() {
         return String.format("%s;%s;%s;%s;%s;%d", username, password, email, firstName, lastName);
     }
-
-//    @Override
-//    public String toString() {
-//        return "AppUser{" +
-//                "username='" + username + '\'' +
-//                ", password='" + password + '\'' +
-//                ", email='" + email + '\'' +
-//                ", firstName='" + firstName + '\'' +
-//                ", lastName='" + lastName + '\'' +
-//                ", age=" + age +
-//                '}';
-//    }
-
 
     @Override
     public String toString() {
@@ -134,6 +108,8 @@ public class AppUser {
         sb.append(", email='").append(email).append('\'');
         sb.append(", firstName='").append(firstName).append('\'');
         sb.append(", lastName='").append(lastName).append('\'');
+        sb.append(", dateOfBirth='").append(dob).append('\'');
+        sb.append(", phone='").append(phone).append('\'');
         sb.append('}');
         return sb.toString();
     }

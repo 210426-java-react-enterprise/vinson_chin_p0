@@ -14,7 +14,7 @@ public class UserDAO {
 
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
-            String sqlInsertUser = "insert into quizzard.users (username , password , email , first_name , last_name , dob, phone) values (?,?,?,?,?,?,?)";
+            String sqlInsertUser = "insert into project0.users (username , password , email , firstname , lastname , dob, phone) values (?,?,?,?,?,?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sqlInsertUser, new String[] { "user_id" });
             pstmt.setString(1,newUser.getUsername());
             pstmt.setString(2,newUser.getPassword());
@@ -22,7 +22,7 @@ public class UserDAO {
             pstmt.setString(4,newUser.getFirstName());
             pstmt.setString(5,newUser.getLastName());
             pstmt.setString(6,newUser.getDob());
-            pstmt.setInt(7,newUser.getPhone());
+            pstmt.setLong(7,newUser.getPhone());
             int rowsInserted = pstmt.executeUpdate();
 
             if (rowsInserted != 0) {
@@ -42,7 +42,7 @@ public class UserDAO {
     public boolean isUsernameAvailable(String username) {
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
-            String sql = "select * from quizzard.users where username = ?";
+            String sql = "select * from project0.users where username = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, username);
 
@@ -62,7 +62,7 @@ public class UserDAO {
     public boolean isEmailAvailable(String email) {
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
-            String sql = "select * from quizzard.users where email = ?";
+            String sql = "select * from project0.users where email = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, email);
 
@@ -84,7 +84,7 @@ public class UserDAO {
 
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
-            String sql = "select * from quizzard.users where username = ? and password = ?";
+            String sql = "select * from project0.users where username = ? and password = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, username);
             pstmt.setString(2, password);
@@ -95,9 +95,11 @@ public class UserDAO {
                 user.setId(rs.getInt("id"));
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
-                user.setFirstName(rs.getString("first_name"));
-                user.setLastName(rs.getString("last_name"));
+                user.setFirstName(rs.getString("firstname"));
+                user.setLastName(rs.getString("lastname"));
                 user.setEmail(rs.getString("email"));
+                user.setDob(rs.getString("dob"));
+                user.setPhone(rs.getLong("phone"));
             }
 
         } catch (SQLException e) {

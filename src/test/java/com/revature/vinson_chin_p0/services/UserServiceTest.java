@@ -34,7 +34,7 @@ public class UserServiceTest {
 
         // Arrange
         AppUser validUser = new AppUser(0, "un", "pw", "email", "fn", "ln", "1231-56-46", 21356);
-        AppUser expectedResult = new AppUser(1, "un", "pw", "email", "fn", "ln", "1828-12-54", 132132);
+        AppUser expectedResult = new AppUser(1, "un", "pw", "email", "fn", "ln", "1231-56-46", 21356);
         when(mockUserDao.isUsernameAvailable(anyString())).thenReturn(true);
         when(mockUserDao.isEmailAvailable(anyString())).thenReturn(true);
         when(mockUserDao.save(validUser)).thenReturn(expectedResult);
@@ -90,7 +90,7 @@ public class UserServiceTest {
     @Test(expected = InvalidRequestException.class)
     public void test_registerWithInvalidUser() {
         // Arrange
-        AppUser invalidUser = new AppUser("", "", "", "", "", "", 123116456);
+        AppUser invalidUser = new AppUser("", "", "", "", "", "", 0);
 
         // Act
         sut.register(invalidUser);
@@ -104,28 +104,3 @@ public class UserServiceTest {
 
 
 }
-
-// Stubbing
-//class UserDAOStub extends UserDAO {
-//    @Override
-//    public void save(AppUser newUser) {
-//        newUser.setId(1);
-//    }
-//
-//    @Override
-//    public boolean isUsernameAvailable(String username) {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isEmailAvailable(String email) {
-//        return true;
-//    }
-//
-//    @Override
-//    public AppUser findUserByUsernameAndPassword(String username, String password) {
-//        AppUser fakeUser = new AppUser(username, password, "fake", "fake", "fake", 18);
-//        fakeUser.setId(1);
-//        return fakeUser;
-//    }
-//}

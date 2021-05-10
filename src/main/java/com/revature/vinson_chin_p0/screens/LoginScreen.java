@@ -23,9 +23,9 @@ public class LoginScreen extends Screen {
         try {
             String username;
             String password;
+            int attempts = 1;
 
-            System.out.println("Log into your account!");
-            System.out.println("+---------------------+");
+            System.out.println("Login Screen\n");
 
             System.out.print("Username: ");
             username = consoleReader.readLine();
@@ -35,21 +35,37 @@ public class LoginScreen extends Screen {
 
             if (username != null && !username.isEmpty() && password != null && !password.isEmpty()) {
                 AppUser authenticatedUser = userDao.findUserByUsernameAndPassword(username, password);
+                String retry;
+                while (authenticatedUser == null) {
+                    System.out.println("Login failed!");
+                    if (attempts == 5) {
+                        System.out.println("All attempts used. Returning to welcome screen.");
+                        break;
+                    }
+                    System.out.print("Enter 'y' to try again: ");
+                    retry = consoleReader.readLine();
+
+                    if (retry == "y") {
+                        System.out.print("Re-enter Username: ");
+                        username = consoleReader.readLine();
+
+                        System.out.print("Re-enter Password: ");
+                        password = consoleReader.readLine();
+
+                        authenticatedUser = userDao.findUserByUsernameAndPassword(username, password);
+                    } else {
+                        System.out.println("Returning to welcome screen");
+                        break;
+                    }
+
+                }
                 if (authenticatedUser != null) {
                     System.out.println("Login successful!");
                     router.navigate("/dashboard");
-
-                } else {
-                    System.out.println("Login failed!");
-
-                    /*
-                        The below code is not necessary, because if the login fails, we will fall
-                        out of this method
-                     */
-                    router.navigate("/welcome");
                 }
             } else {
-                System.out.println("It looks like you didn't provide any credentials!");
+                System.out.println("No credentials provided");
+                System.out.println("Returning to welcome screen");
             }
 
         } catch (Exception e) {

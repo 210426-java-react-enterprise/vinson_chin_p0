@@ -3,25 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <!--
-        XML = eXtensible Markup Language
-
-            Well-formed: syntactically valid
-
-                The below example is not well formed!
-                <note>
-                    <to>Sean</to>
-                    <from>Wezley</fom>
-                    <heading>Example</heading>
-                </note>
-
-            Valid: well-formed AND compliant with the declared schema definitions
-                + basically, you can't use tag names that the XML file is unaware of
-                + or that you nest elements within other elements in a way that
-                  is compliant with the schema definition
-
-    -->
-
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.revature</groupId>

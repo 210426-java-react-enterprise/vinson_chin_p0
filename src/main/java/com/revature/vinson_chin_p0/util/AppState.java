@@ -1,6 +1,7 @@
 package com.revature.vinson_chin_p0.util;
 
 import com.revature.vinson_chin_p0.daos.UserDAO;
+import com.revature.vinson_chin_p0.screens.Dashboard;
 import com.revature.vinson_chin_p0.screens.LoginScreen;
 import com.revature.vinson_chin_p0.screens.RegisterScreen;
 import com.revature.vinson_chin_p0.screens.WelcomeScreen;
@@ -27,7 +28,8 @@ public class AppState {
         router = new ScreenRouter();
         router.addScreen(new WelcomeScreen(consoleReader, router))
                 .addScreen(new LoginScreen(consoleReader, router))
-                .addScreen(new RegisterScreen(consoleReader, router, userService));
+                .addScreen(new RegisterScreen(consoleReader, router, userService))
+                .addScreen(new Dashboard(consoleReader,router));
 
 
         System.out.println("Application initialized!");
