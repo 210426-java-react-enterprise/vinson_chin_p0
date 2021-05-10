@@ -15,7 +15,7 @@ public class UserDAO {
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
             String sqlInsertUser = "insert into project0.users (username , password , email , firstname , lastname , dob, phone) values (?,?,?,?,?,?,?)";
-            PreparedStatement pstmt = conn.prepareStatement(sqlInsertUser, new String[] { "user_id" });
+            PreparedStatement pstmt = conn.prepareStatement(sqlInsertUser, new String[] { "id" });
             pstmt.setString(1,newUser.getUsername());
             pstmt.setString(2,newUser.getPassword());
             pstmt.setString(3,newUser.getEmail());
@@ -28,7 +28,7 @@ public class UserDAO {
             if (rowsInserted != 0) {
                 ResultSet rs = pstmt.getGeneratedKeys();
                 while (rs.next()) {
-                    newUser.setId(rs.getInt("user_id"));
+                    newUser.setId(rs.getInt("id"));
                 }
             }
 
