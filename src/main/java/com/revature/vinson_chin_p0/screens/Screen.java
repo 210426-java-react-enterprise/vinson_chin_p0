@@ -1,5 +1,7 @@
 package com.revature.vinson_chin_p0.screens;
 
+import com.revature.vinson_chin_p0.models.AppUser;
+
 public abstract class Screen {
 
     protected String name;
@@ -18,6 +20,6 @@ public abstract class Screen {
         return route;
     }
 
-    public abstract void render();
+    public abstract void render(AppUser currentUser);
 
 }

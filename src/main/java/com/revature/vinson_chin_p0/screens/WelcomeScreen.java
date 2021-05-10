@@ -1,5 +1,6 @@
 package com.revature.vinson_chin_p0.screens;
 
+import com.revature.vinson_chin_p0.models.AppUser;
 import com.revature.vinson_chin_p0.util.ScreenRouter;
 import static com.revature.vinson_chin_p0.Driver.app;
 
@@ -17,9 +18,9 @@ public class WelcomeScreen extends Screen {
     }
 
     @Override
-    public void render() {
+    public void render(AppUser currentUser) {
 
-        System.out.println("Welcome to your Banking Application");
+        System.out.println("\nWelcome to your Banking Application\n");
         System.out.println("What would you like to do?");
         System.out.println("1) Login");
         System.out.println("2) Register");
@@ -31,11 +32,11 @@ public class WelcomeScreen extends Screen {
 
             switch (userSelection) {
                 case "1":
-                    System.out.println("Navigating to login screen");
+                    System.out.println("Navigating to login screen\n");
                     router.navigate("/login");
                     break;
                 case "2":
-                    System.out.println("Navigating to register screen");
+                    System.out.println("Navigating to register screen\n");
                     router.navigate("/register");
                     break;
                 case "3":
@@ -43,7 +44,7 @@ public class WelcomeScreen extends Screen {
                     app().setAppRunning(false);
                     break;
                 default:
-                    System.out.println("Invalid selection!");
+                    System.out.println("Invalid selection!\n");
             }
 
         } catch (Exception e) {

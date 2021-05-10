@@ -18,14 +18,14 @@ public class LoginScreen extends Screen {
         this.router = router;
     }
 
-    public void render() {
+    public void render(AppUser currentUser) {
 
         try {
             String username;
             String password;
             int attempts = 1;
 
-            System.out.println("Login Screen\n");
+            System.out.println("Login Screen");
 
             System.out.print("Username: ");
             username = consoleReader.readLine();
@@ -39,7 +39,7 @@ public class LoginScreen extends Screen {
                 while (authenticatedUser == null) {
                     System.out.println("Login failed!");
                     if (attempts == 5) {
-                        System.out.println("All attempts used. Returning to welcome screen.");
+                        System.out.println("All attempts used. Returning to welcome screen.\n");
                         break;
                     }
                     System.out.print("Enter 'y' to try again: ");
@@ -54,18 +54,18 @@ public class LoginScreen extends Screen {
 
                         authenticatedUser = userDao.findUserByUsernameAndPassword(username, password);
                     } else {
-                        System.out.println("Returning to welcome screen");
+                        System.out.println("Returning to welcome screen\n");
                         break;
                     }
 
                 }
                 if (authenticatedUser != null) {
-                    System.out.println("Login successful!");
-                    router.navigate("/dashboard");
+                    System.out.println("Login successful!\n");
+                    router.navigate("/dashboard", authenticatedUser);
                 }
             } else {
                 System.out.println("No credentials provided");
-                System.out.println("Returning to welcome screen");
+                System.out.println("Returning to welcome screen\n");
             }
 
         } catch (Exception e) {
