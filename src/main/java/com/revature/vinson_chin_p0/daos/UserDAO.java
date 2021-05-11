@@ -43,7 +43,7 @@ public class UserDAO {
 
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
-            String sqlUpdateUser = "update project0.users set username = ? , password = ? , email = ? , firstname = ? , lastname = ? , dob = ?, phone = ? where id = "+ changedUser.getId();
+            String sqlUpdateUser = "update project0.users set username = ? , password = ? , email = ? , firstname = ? , lastname = ? , dob = ?, phone = ? where id = ?";
             PreparedStatement pstmt = conn.prepareStatement(sqlUpdateUser);
             pstmt.setString(1,changedUser.getUsername());
             pstmt.setString(2,changedUser.getPassword());
@@ -52,6 +52,7 @@ public class UserDAO {
             pstmt.setString(5,changedUser.getLastName());
             pstmt.setString(6,changedUser.getDob());
             pstmt.setLong(7,changedUser.getPhone());
+            pstmt.setInt(8, changedUser.getId());
             int rowsUpdated = pstmt.executeUpdate();
 
             if (rowsUpdated != 0) {

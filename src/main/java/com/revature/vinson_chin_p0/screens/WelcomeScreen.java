@@ -1,5 +1,6 @@
 package com.revature.vinson_chin_p0.screens;
 
+import com.revature.vinson_chin_p0.models.Account;
 import com.revature.vinson_chin_p0.models.AppUser;
 import com.revature.vinson_chin_p0.util.ScreenRouter;
 import static com.revature.vinson_chin_p0.Driver.app;
@@ -18,7 +19,10 @@ public class WelcomeScreen extends Screen {
     }
 
     @Override
-    public void render(AppUser currentUser) {
+    public void render(AppUser currentUser) {}
+
+    @Override
+    public void render() {
 
         System.out.println("\nWelcome to your Banking Application\n");
         System.out.println("What would you like to do?");
@@ -52,4 +56,7 @@ public class WelcomeScreen extends Screen {
         }
 
     }
+
+    @Override
+    public void render(AppUser currentUser, Account currentAccount) {}
 }

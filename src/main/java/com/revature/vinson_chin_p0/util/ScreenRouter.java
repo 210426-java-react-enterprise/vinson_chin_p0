@@ -1,5 +1,6 @@
 package com.revature.vinson_chin_p0.util;
 
+import com.revature.vinson_chin_p0.models.Account;
 import com.revature.vinson_chin_p0.models.AppUser;
 import com.revature.vinson_chin_p0.screens.Screen;
 
@@ -16,7 +17,7 @@ public class ScreenRouter {
         for (int i = 0; i < screens.size(); i++) {
             Screen screen = screens.get(i);
             if (screen.getRoute().equals(route)) {
-                screen.render(null);
+                screen.render();
             }
         }
     }
@@ -30,4 +31,12 @@ public class ScreenRouter {
         }
     }
 
+    public void navigate(String route, AppUser currentUser, Account currentAccount) {
+        for (int i = 0; i < screens.size(); i++) {
+            Screen screen = screens.get(i);
+            if (screen.getRoute().equals(route)) {
+                screen.render(currentUser, currentAccount);
+            }
+        }
+    }
 }

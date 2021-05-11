@@ -1,5 +1,6 @@
 package com.revature.vinson_chin_p0.screens;
 
+import com.revature.vinson_chin_p0.models.Account;
 import com.revature.vinson_chin_p0.models.AppUser;
 import com.revature.vinson_chin_p0.services.UserService;
 import com.revature.vinson_chin_p0.util.ScreenRouter;
@@ -26,22 +27,16 @@ public class UserInformation extends Screen {
     public void render(AppUser currentUser) {
 
         System.out.println("\nUser Information");
-        System.out.println("Username: " + currentUser.getUsername());
-        System.out.println("Password: " + currentUser.getPassword());
-        System.out.println("Email: %s" + currentUser.getEmail());
-        System.out.println("First Name: " + currentUser.getFirstName());
-        System.out.println("Last Name: " + currentUser.getLastName());
-        System.out.println("Date of Birth: " + currentUser.getDob());
-        System.out.println("Phone Number: " + currentUser.getPhone());
-        System.out.println("\nWhat would you like to change?");
-        System.out.println("1) Username");
-        System.out.println("2) Password");
-        System.out.println("3) Email");
-        System.out.println("4) First Name");
-        System.out.println("5) Last Name");
-        System.out.println("6) Date of Birth");
-        System.out.println("7) Phone Number");
+        System.out.println("1) Username: " + currentUser.getUsername());
+        System.out.println("2) Password: " + currentUser.getPassword());
+        System.out.println("3) Email: " + currentUser.getEmail());
+        System.out.println("4) First Name: " + currentUser.getFirstName());
+        System.out.println("5) Last Name: " + currentUser.getLastName());
+        System.out.println("6) Date of Birth: " + currentUser.getDob());
+        System.out.println("7) Phone Number: " + currentUser.getPhone());
         System.out.println("8) Save and Return to Dashboard");
+        System.out.println("\nWhat would you like to change?");
+
 
         try {
             System.out.print("> ");
@@ -110,4 +105,10 @@ public class UserInformation extends Screen {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void render() {}
+
+    @Override
+    public void render(AppUser currentUser, Account currentAccount) {}
 }

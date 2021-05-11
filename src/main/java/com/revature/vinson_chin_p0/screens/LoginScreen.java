@@ -1,6 +1,7 @@
 package com.revature.vinson_chin_p0.screens;
 
 import com.revature.vinson_chin_p0.daos.UserDAO;
+import com.revature.vinson_chin_p0.models.Account;
 import com.revature.vinson_chin_p0.models.AppUser;
 import com.revature.vinson_chin_p0.util.ScreenRouter;
 
@@ -18,7 +19,7 @@ public class LoginScreen extends Screen {
         this.router = router;
     }
 
-    public void render(AppUser currentUser) {
+    public void render() {
 
         try {
             String username;
@@ -72,4 +73,10 @@ public class LoginScreen extends Screen {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void render(AppUser currentUser, Account currentAccount) {}
+
+    @Override
+    public void render(AppUser currentUser) {}
 }

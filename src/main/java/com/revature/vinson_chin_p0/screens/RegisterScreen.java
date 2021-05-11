@@ -2,6 +2,7 @@ package com.revature.vinson_chin_p0.screens;
 
 import com.revature.vinson_chin_p0.exceptions.InvalidRequestException;
 import com.revature.vinson_chin_p0.exceptions.ResourcePersistenceException;
+import com.revature.vinson_chin_p0.models.Account;
 import com.revature.vinson_chin_p0.models.AppUser;
 import com.revature.vinson_chin_p0.services.UserService;
 import com.revature.vinson_chin_p0.util.ScreenRouter;
@@ -20,10 +21,12 @@ public class RegisterScreen extends Screen {
         this.consoleReader = consoleReader;
         this.userService = userService;
         this.router = router;
-        this.userService = userService;
     }
 
-    public void render(AppUser currentUser) {
+    @Override
+    public void render(AppUser currentUser) {}
+
+    public void render() {
 
         String firstName;
         String lastName;
@@ -75,7 +78,7 @@ public class RegisterScreen extends Screen {
 
         } catch (NumberFormatException nfe) {
             System.err.println("Not a Valid Phone Number! Please try again!\n");
-            this.render(currentUser);
+            this.render();
         } catch (InvalidRequestException | ResourcePersistenceException e) {
             System.err.println(e + "\n");
             router.navigate("/welcome");
@@ -83,5 +86,8 @@ public class RegisterScreen extends Screen {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void render(AppUser currentUser, Account currentAccount) {}
 
 }
