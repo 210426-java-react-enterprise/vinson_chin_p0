@@ -10,9 +10,9 @@ import java.sql.SQLException;
 
 public class UserDAO {
 
-    public AppUser save(AppUser newUser) {
+    public AppUser save(Connection conn, AppUser newUser) {
 
-        try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+        try {
 
             String sqlInsertUser = "insert into project0.users (username , password , email , firstname , lastname , dob, phone) values (?,?,?,?,?,?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sqlInsertUser, new String[] { "id" });
@@ -33,17 +33,18 @@ public class UserDAO {
             }
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            System.err.println("Connection or SQL statement problems...exiting application");
+            System.exit(0);
         }
 
         return newUser;
     }
 
-    public AppUser update(AppUser changedUser) {
+    public AppUser update(Connection conn, AppUser changedUser) {
 
-        try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+        try {
 
-            String sqlUpdateUser = "update project0.users set username = ? , password = ? , email = ? , firstname = ? , lastname = ? , dob = ?, phone = ? where id = "+ changedUser.getId();
+            String sqlUpdateUser = "update project0.users set username = ? , password = ? , email = ? , firstname = ? , lastname = ? , dob = ?, phone = ? where id = ?";
             PreparedStatement pstmt = conn.prepareStatement(sqlUpdateUser);
             pstmt.setString(1,changedUser.getUsername());
             pstmt.setString(2,changedUser.getPassword());
@@ -52,6 +53,7 @@ public class UserDAO {
             pstmt.setString(5,changedUser.getLastName());
             pstmt.setString(6,changedUser.getDob());
             pstmt.setLong(7,changedUser.getPhone());
+            pstmt.setInt(8, changedUser.getId());
             int rowsUpdated = pstmt.executeUpdate();
 
             if (rowsUpdated != 0) {
@@ -62,14 +64,16 @@ public class UserDAO {
             }
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            System.err.println("Connection or SQL statement problems...exiting application");
+            System.exit(0);
         }
 
         return changedUser;
     }
 
-    public boolean isUsernameAvailable(String username) {
-        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+    public boolean isUsernameAvailable(Connection conn, String username) {
+
+        try {
 
             String sql = "select * from project0.users where username = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -80,16 +84,18 @@ public class UserDAO {
                 return false;
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException throwables) {
+            System.err.println("Connection or SQL statement problems...exiting application");
+            System.exit(0);
         }
 
         return true;
 
     }
 
-    public boolean isUpdatedUsernameAvailable(String username, int id) {
-        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+    public boolean isUpdatedUsernameAvailable(Connection conn, String username, int id) {
+
+        try {
 
             String sql = "select * from project0.users where username = ? except select * from project0.users where id = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -101,16 +107,18 @@ public class UserDAO {
                 return false;
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException throwables) {
+            System.err.println("Connection or SQL statement problems...exiting application");
+            System.exit(0);
         }
 
         return true;
 
     }
 
-    public boolean isEmailAvailable(String email) {
-        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+    public boolean isEmailAvailable(Connection conn, String email) {
+
+        try {
 
             String sql = "select * from project0.users where email = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -121,15 +129,17 @@ public class UserDAO {
                 return false;
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException throwables) {
+            System.err.println("Connection or SQL statement problems...exiting application");
+            System.exit(0);
         }
 
         return true;
     }
 
-    public boolean isUpdatedEmailAvailable(String email, int id) {
-        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+    public boolean isUpdatedEmailAvailable(Connection conn, String email, int id) {
+
+        try {
 
             String sql = "select * from project0.users where email = ? except select * from project0.users where id = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -141,8 +151,9 @@ public class UserDAO {
                 return false;
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException throwables) {
+            System.err.println("Connection or SQL statement problems...exiting application");
+            System.exit(0);
         }
 
         return true;
@@ -172,8 +183,9 @@ public class UserDAO {
                 user.setPhone(rs.getLong("phone"));
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException throwables) {
+            System.err.println("Connection or SQL statement problems...exiting application");
+            System.exit(0);
         }
 
         return user;

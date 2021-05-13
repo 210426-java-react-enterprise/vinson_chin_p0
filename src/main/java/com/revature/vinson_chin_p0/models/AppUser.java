@@ -6,7 +6,7 @@ public class AppUser {
     private String username;
     private String password;
     private String email;
-    private String firstName; // variables should be in camelCase
+    private String firstName;
     private String lastName;
     private String dob;
     private long phone;
@@ -16,7 +16,6 @@ public class AppUser {
     }
 
     public AppUser(String username, String password, String email, String firstName, String lastName, String dob, long phone) {
-        System.out.println("AppUser constructor invoked!");
         this.username = username;
         this.password = password;
         this.email = email;
@@ -95,9 +94,9 @@ public class AppUser {
         this.phone = phone;
     }
 
-    public String toFileString() {
-        return String.format("%s;%s;%s;%s;%s;%d", username, password, email, firstName, lastName);
-    }
+//    public String toFileString() {
+//        return String.format("%s;%s;%s;%s;%s;%s;%l", username, password, email, firstName, lastName, dob, phone);
+//    }
 
     @Override
     public String toString() {
@@ -109,7 +108,7 @@ public class AppUser {
         sb.append(", firstName='").append(firstName).append('\'');
         sb.append(", lastName='").append(lastName).append('\'');
         sb.append(", dateOfBirth='").append(dob).append('\'');
-        sb.append(", phone='").append(phone).append('\'');
+        sb.append(", phone='").append(phone);
         sb.append('}');
         return sb.toString();
     }

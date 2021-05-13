@@ -1,9 +1,13 @@
 package com.revature.vinson_chin_p0.screens;
 
+import com.revature.vinson_chin_p0.models.Account;
 import com.revature.vinson_chin_p0.models.AppUser;
 import com.revature.vinson_chin_p0.util.ScreenRouter;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+
+import static com.revature.vinson_chin_p0.Driver.app;
 
 public class Dashboard extends Screen {
 
@@ -47,8 +51,15 @@ public class Dashboard extends Screen {
                     this.render(currentUser);
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            System.err.println("Unable to read input or navigating to another screen...exiting application");
+            System.exit(0);
         }
     }
+
+    @Override
+    public void render() {}
+
+    @Override
+    public void render(AppUser currentUser, Account currentAccount) {}
 }
