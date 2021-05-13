@@ -4,6 +4,8 @@ import com.revature.vinson_chin_p0.models.Account;
 import com.revature.vinson_chin_p0.models.AppUser;
 import com.revature.vinson_chin_p0.screens.Screen;
 
+import java.io.IOException;
+
 public class ScreenRouter {
 
     private LinkedList<Screen> screens = new LinkedList<>();
@@ -31,7 +33,7 @@ public class ScreenRouter {
         }
     }
 
-    public void navigate(String route, AppUser currentUser, Account currentAccount) {
+    public void navigate(String route, AppUser currentUser, Account currentAccount) throws IOException {
         for (int i = 0; i < screens.size(); i++) {
             Screen screen = screens.get(i);
             if (screen.getRoute().equals(route)) {

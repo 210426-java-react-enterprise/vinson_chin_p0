@@ -35,24 +35,24 @@ public class UserServiceTest {
         // Arrange
         AppUser validUser = new AppUser(0, "un", "pw", "email", "fn", "ln", "1231-56-46", 21356);
         AppUser expectedResult = new AppUser(1, "un", "pw", "email", "fn", "ln", "1231-56-46", 21356);
-        when(mockUserDao.isUsernameAvailable(anyString())).thenReturn(true);
-        when(mockUserDao.isEmailAvailable(anyString())).thenReturn(true);
-        when(mockUserDao.save(validUser)).thenReturn(expectedResult);
+        when(mockUserDao.isUsernameAvailable(any(), anyString())).thenReturn(true);
+        when(mockUserDao.isEmailAvailable(any(), anyString())).thenReturn(true);
+        when(mockUserDao.save(any(), validUser)).thenReturn(expectedResult);
 
         // Act
         AppUser actualResult = sut.register(validUser);
 
         // Assert
         assertEquals(expectedResult, actualResult);
-        verify(mockUserDao, times(1)).isUsernameAvailable(anyString());
-        verify(mockUserDao, times(1)).isEmailAvailable(anyString());
-        verify(mockUserDao, times(1)).save(any());
+        verify(mockUserDao, times(1)).isUsernameAvailable(any(), anyString());
+        verify(mockUserDao, times(1)).isEmailAvailable(any(), anyString());
+        verify(mockUserDao, times(1)).save(any(), any());
     }
 
     @Test
     public void test_registerWithValidUserAndTakenUsername() {
         // Arrange
-        when(mockUserDao.isUsernameAvailable(anyString())).thenReturn(false);
+        when(mockUserDao.isUsernameAvailable(any(), anyString())).thenReturn(false);
 
         // Act
         try {
@@ -60,8 +60,8 @@ public class UserServiceTest {
         } catch (Exception e) {
             assertTrue(e instanceof ResourcePersistenceException);
         } finally {
-            verify(mockUserDao, times(0)).isEmailAvailable(anyString());
-            verify(mockUserDao, times(0)).save(any());
+            verify(mockUserDao, times(0)).isEmailAvailable(any(), anyString());
+            verify(mockUserDao, times(0)).save(any(), any());
         }
 
 
@@ -70,8 +70,8 @@ public class UserServiceTest {
     @Test
     public void test_registerWithValidUserAndTakenEmail() {
         // Arrange
-        when(mockUserDao.isUsernameAvailable(anyString())).thenReturn(true);
-        when(mockUserDao.isEmailAvailable(anyString())).thenReturn(false);
+        when(mockUserDao.isUsernameAvailable(any(), anyString())).thenReturn(true);
+        when(mockUserDao.isEmailAvailable(any(), anyString())).thenReturn(false);
 
         // Act
         try {
@@ -79,9 +79,9 @@ public class UserServiceTest {
         } catch (Exception e) {
             assertTrue(e instanceof ResourcePersistenceException);
         } finally {
-            verify(mockUserDao, times(1)).isUsernameAvailable(anyString());
-            verify(mockUserDao, times(1)).isEmailAvailable(anyString());
-            verify(mockUserDao, times(0)).save(any());
+            verify(mockUserDao, times(1)).isUsernameAvailable(any(), anyString());
+            verify(mockUserDao, times(1)).isEmailAvailable(any(), anyString());
+            verify(mockUserDao, times(0)).save(any(), any());
         }
 
 
@@ -96,8 +96,8 @@ public class UserServiceTest {
         sut.register(invalidUser);
 
         // Assert
-        verify(mockUserDao.isUsernameAvailable(anyString()), times(1));
-        verify(mockUserDao.isEmailAvailable(anyString()), times(0));
+        verify(mockUserDao.isUsernameAvailable(any(), anyString()), times(1));
+        verify(mockUserDao.isEmailAvailable(any(), anyString()), times(0));
 
 
     }

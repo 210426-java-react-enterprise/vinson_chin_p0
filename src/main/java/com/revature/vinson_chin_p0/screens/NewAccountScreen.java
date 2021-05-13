@@ -1,19 +1,20 @@
 package com.revature.vinson_chin_p0.screens;
 
-import com.revature.vinson_chin_p0.daos.AccountDAO;
+import com.revature.vinson_chin_p0.exceptions.InvalidRequestException;
+import com.revature.vinson_chin_p0.exceptions.ResourcePersistenceException;
 import com.revature.vinson_chin_p0.models.Account;
 import com.revature.vinson_chin_p0.models.AppUser;
 import com.revature.vinson_chin_p0.services.AccountService;
 import com.revature.vinson_chin_p0.util.ScreenRouter;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 
 public class NewAccountScreen extends Screen{
 
     BufferedReader consoleReader;
     ScreenRouter router;
     AccountService accountService;
-    AccountDAO accountDAO = new AccountDAO();
 
     public NewAccountScreen(BufferedReader consoleReader, ScreenRouter router, AccountService accountService) {
         super("NewAccountScreen", "/newAccount");
@@ -69,9 +70,15 @@ public class NewAccountScreen extends Screen{
             accountService.create(newAccount);
             System.out.println("New Account Created\n");
             router.navigate("/accounts", currentUser);
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (InvalidRequestException e) {
+            System.err.println(e + "\n");
+            this.render(currentUser);
+        } catch (ResourcePersistenceException e) {
+            System.err.println(e + "\n");
+            this.render(currentUser);
+        } catch (IOException e) {
+            System.err.println("Unable to read input or navigating to another screen...exiting application");
+            System.exit(0);
         }
     }
 

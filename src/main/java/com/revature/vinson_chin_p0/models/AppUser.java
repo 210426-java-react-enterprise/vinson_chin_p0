@@ -6,7 +6,7 @@ public class AppUser {
     private String username;
     private String password;
     private String email;
-    private String firstName; // variables should be in camelCase
+    private String firstName;
     private String lastName;
     private String dob;
     private long phone;
@@ -16,7 +16,6 @@ public class AppUser {
     }
 
     public AppUser(String username, String password, String email, String firstName, String lastName, String dob, long phone) {
-        System.out.println("AppUser constructor invoked!");
         this.username = username;
         this.password = password;
         this.email = email;

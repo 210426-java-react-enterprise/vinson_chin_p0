@@ -6,6 +6,7 @@ import com.revature.vinson_chin_p0.models.AppUser;
 import com.revature.vinson_chin_p0.util.ScreenRouter;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 
 public class LoginScreen extends Screen {
 
@@ -69,8 +70,9 @@ public class LoginScreen extends Screen {
                 System.out.println("Returning to welcome screen\n");
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            System.err.println("Unable to read input or navigating to another screen...exiting application");
+            System.exit(0);
         }
     }
 

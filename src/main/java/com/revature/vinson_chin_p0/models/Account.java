@@ -13,7 +13,6 @@ public class Account {
     }
 
     public Account(int userId, double balance, String accountType, String name) {
-        System.out.println("Account constructor invoked!");
         this.userId = userId;
         this.balance = balance;
         this.accountType = accountType;

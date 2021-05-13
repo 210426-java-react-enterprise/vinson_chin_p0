@@ -10,9 +10,9 @@ import java.sql.SQLException;
 
 public class AccountDAO {
 
-    public Account save(Account newAccount) {
+    public Account save(Connection conn, Account newAccount) {
 
-        try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+        try {
 
             String sqlInsertUser = "insert into project0.accounts (userid, balance, accounttype, name) values (?,?,?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sqlInsertUser, new String[] { "id" });
@@ -30,15 +30,16 @@ public class AccountDAO {
             }
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            System.err.println("Connection or SQL statement problems...exiting application");
+            System.exit(0);
         }
 
         return newAccount;
     }
 
-    public Account update(Account changedAccount) {
+    public Account update(Connection conn, Account changedAccount) {
 
-        try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+        try {
 
             String sqlUpdateUser = "update project0.accounts set accounttype = ? , name = ? where id = ?";
             PreparedStatement pstmt = conn.prepareStatement(sqlUpdateUser);
@@ -55,7 +56,8 @@ public class AccountDAO {
             }
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            System.err.println("Connection or SQL statement problems...exiting application");
+            System.exit(0);
         }
 
         return changedAccount;
@@ -79,14 +81,16 @@ public class AccountDAO {
             }
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            System.err.println("Connection or SQL statement problems...exiting application");
+            System.exit(0);
         }
 
         return changedAccount;
     }
 
-    public boolean isNameAvailable(String name) {
-        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+    public boolean isNameAvailable(Connection conn, String name) {
+
+        try {
 
             String sql = "select * from project0.accounts where name = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -98,15 +102,17 @@ public class AccountDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Connection or SQL statement problems...exiting application");
+            System.exit(0);
         }
 
         return true;
 
     }
 
-    public boolean isUpdatedNameAvailable(String name, int id) {
-        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+    public boolean isUpdatedNameAvailable(Connection conn, String name, int id) {
+
+        try {
 
             String sql = "select * from project0.accounts where name = ? except select * from project0.accounts where id = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -119,10 +125,43 @@ public class AccountDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Connection or SQL statement problems...exiting application");
+            System.exit(0);
         }
 
         return true;
+
+    }
+
+    public Account[] findOtherAccounts(int userId, int id) {
+
+        Account[] accounts = new Account[50];
+
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
+
+            String sql = "select * from project0.accounts where userid = ? except select * from project0.accounts where id = ?";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, userId);
+            pstmt.setInt(2, id);
+
+            ResultSet rs = pstmt.executeQuery();
+            int i = 0;
+            while (rs.next()) {
+                accounts[i] = new Account();
+                accounts[i].setId(rs.getInt("id"));
+                accounts[i].setUserid(rs.getInt("userid"));
+                accounts[i].setBalance(rs.getDouble("balance"));
+                accounts[i].setAccountType(rs.getString("accounttype"));
+                accounts[i].setName(rs.getString("name"));
+                i++;
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Connection or SQL statement problems...exiting application");
+            System.exit(0);
+        }
+
+        return accounts;
 
     }
 
@@ -149,7 +188,8 @@ public class AccountDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Connection or SQL statement problems...exiting application");
+            System.exit(0);
         }
 
         return accounts;
