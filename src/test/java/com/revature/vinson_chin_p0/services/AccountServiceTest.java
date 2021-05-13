@@ -42,7 +42,7 @@ public class AccountServiceTest {
         // Arrange
         Account validAccount = new Account(0, 1, 0.0, "type", "test");
         Account expectedResult = new Account(1, 1, 0.0, "type", "test");
-        when(mockAccountDao.isNameAvailable(any(), anyString())).thenReturn(true);
+        when(mockAccountDao.isNameAvailable(any(), anyString(), anyInt())).thenReturn(true);
         when(mockAccountDao.save(any(), eq(validAccount))).thenReturn(expectedResult);
 
         // Act
@@ -50,14 +50,14 @@ public class AccountServiceTest {
 
         // Assert
         assertEquals(expectedResult, actualResult);
-        verify(mockAccountDao, times(1)).isNameAvailable(any(), anyString());
+        verify(mockAccountDao, times(1)).isNameAvailable(any(), anyString(), anyInt());
         verify(mockAccountDao, times(1)).save(any(), any());
     }
 
     @Test
     public void test_createWithValidAccountAndTakenName() {
         // Arrange
-        when(mockAccountDao.isNameAvailable(any(), anyString())).thenReturn(false);
+        when(mockAccountDao.isNameAvailable(any(), anyString(), anyInt())).thenReturn(false);
 
         // Act
         try {
@@ -80,7 +80,7 @@ public class AccountServiceTest {
         sut.create(invalidAccount);
 
         // Assert
-        verify(mockAccountDao.isNameAvailable(any(), anyString()), times(1));
+        verify(mockAccountDao.isNameAvailable(any(), anyString(), anyInt()), times(1));
 
     }
 
@@ -90,7 +90,7 @@ public class AccountServiceTest {
         // Arrange
         Account validAccount = new Account(0, 1, 0.0, "type", "test");
         Account expectedResult = new Account(1, 1, 0.0, "type", "test");
-        when(mockAccountDao.isUpdatedNameAvailable(any(), anyString(), anyInt())).thenReturn(true);
+        when(mockAccountDao.isUpdatedNameAvailable(any(), anyString(), anyInt(), anyInt())).thenReturn(true);
         when(mockAccountDao.update(any(), eq(validAccount))).thenReturn(expectedResult);
 
         // Act
@@ -98,14 +98,14 @@ public class AccountServiceTest {
 
         // Assert
         assertEquals(expectedResult, actualResult);
-        verify(mockAccountDao, times(1)).isUpdatedNameAvailable(any(), anyString(), anyInt());
+        verify(mockAccountDao, times(1)).isUpdatedNameAvailable(any(), anyString(), anyInt(), anyInt());
         verify(mockAccountDao, times(1)).update(any(), any());
     }
 
     @Test
     public void test_updateWithValidAccountAndTakenName() {
         // Arrange
-        when(mockAccountDao.isUpdatedNameAvailable(any(), anyString(), anyInt())).thenReturn(false);
+        when(mockAccountDao.isUpdatedNameAvailable(any(), anyString(), anyInt(), anyInt())).thenReturn(false);
 
         // Act
         try {
@@ -128,7 +128,7 @@ public class AccountServiceTest {
         sut.update(invalidAccount);
 
         // Assert
-        verify(mockAccountDao.isNameAvailable(any(), anyString()), times(1));
+        verify(mockAccountDao.isNameAvailable(any(), anyString(), anyInt()), times(1));
 
     }
 

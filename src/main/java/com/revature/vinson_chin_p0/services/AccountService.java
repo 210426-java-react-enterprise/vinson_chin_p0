@@ -34,7 +34,7 @@ public class AccountService {
 
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
-            if (!accountDao.isNameAvailable(conn, newAccount.getName())) {
+            if (!accountDao.isNameAvailable(conn, newAccount.getName(), newAccount.getUserid())) {
                 throw new ResourcePersistenceException("The provided account name is already taken!");
             }
 
@@ -63,7 +63,8 @@ public class AccountService {
 
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
-            if (!accountDao.isUpdatedNameAvailable(conn, changedAccount.getName(), changedAccount.getId())) {
+            if (!accountDao.isUpdatedNameAvailable
+                    (conn, changedAccount.getName(), changedAccount.getId(), changedAccount.getUserid())) {
                 throw new ResourcePersistenceException("The provided name is already taken!");
             }
 

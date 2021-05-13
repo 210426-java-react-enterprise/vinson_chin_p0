@@ -58,7 +58,7 @@ public class LoginScreen extends Screen {
                     System.out.print("Enter 'y' to try again: ");
                     retry = consoleReader.readLine();
 
-                    if (retry == "y") {
+                    if (retry.equals("y")) {
                         System.out.print("Re-enter Username: ");
                         username = consoleReader.readLine();
 
@@ -66,6 +66,7 @@ public class LoginScreen extends Screen {
                         password = consoleReader.readLine();
 
                         authenticatedUser = userDao.findUserByUsernameAndPassword(username, password);
+                        attempts++;
                     } else {
                         System.out.println("Returning to welcome screen\n");
                         break;

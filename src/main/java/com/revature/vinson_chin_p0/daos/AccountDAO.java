@@ -119,15 +119,17 @@ public class AccountDAO {
      *
      * @param conn
      * @param name
+     * @param userId
      * @return
      */
-    public boolean isNameAvailable(Connection conn, String name) {
+    public boolean isNameAvailable(Connection conn, String name, int userId) {
 
         try {
 
-            String sql = "select * from project0.accounts where name = ?";
+            String sql = "select * from project0.accounts where name = ? and userid = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, name);
+            pstmt.setInt(2, userId);
 
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
@@ -149,17 +151,19 @@ public class AccountDAO {
      * @param conn
      * @param name
      * @param id
+     * @param userId
      * @return
      */
-    public boolean isUpdatedNameAvailable(Connection conn, String name, int id) {
+    public boolean isUpdatedNameAvailable(Connection conn, String name, int id, int userId) {
 
         try {
 
-            String sql =
-                    "select * from project0.accounts where name = ? except select * from project0.accounts where id = ?";
+            String sql = "select * from project0.accounts where name = ? and userid = ? " +
+                    "except select * from project0.accounts where id = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, name);
-            pstmt.setInt(2, id);
+            pstmt.setInt(2, userId);
+            pstmt.setInt(3, id);
 
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
