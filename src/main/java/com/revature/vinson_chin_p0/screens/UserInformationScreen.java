@@ -10,6 +10,11 @@ import com.revature.vinson_chin_p0.util.ScreenRouter;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+/**
+ * User Information screen used for viewing and changing user information
+ * @author Vinson Chin
+ *
+ */
 public class UserInformationScreen extends Screen {
 
     private UserService userService;
@@ -23,6 +28,13 @@ public class UserInformationScreen extends Screen {
         this.userService = userService;
     }
 
+    /**
+     * Render used with passing in current user
+     * Used on this screen
+     * Allows users to change information and navigation to other screens
+     *
+     * @param currentUser
+     */
     @Override
     public void render(AppUser currentUser) {
 
@@ -121,9 +133,21 @@ public class UserInformationScreen extends Screen {
         }
     }
 
+    /**
+     * Render used without passing anything
+     * Not used on this screen
+     *
+     */
     @Override
     public void render() {}
 
+    /**
+     * Render used with passing in current user and current account
+     * Not used on this screen
+     *
+     * @param currentUser
+     * @param currentAccount
+     */
     @Override
     public void render(AppUser currentUser, Account currentAccount) {}
 }

@@ -5,6 +5,11 @@ import com.revature.vinson_chin_p0.models.AppUser;
 
 import java.io.IOException;
 
+/**
+ * Abstract class screen for rest of screens to extend
+ * @author Vinson Chin
+ *
+ */
 public abstract class Screen {
 
     protected String name;
@@ -23,6 +28,10 @@ public abstract class Screen {
         return route;
     }
 
+    /**
+     * Render methods used for other screens
+     *
+     */
     public abstract void render(AppUser currentUser);
 
     public abstract void render();

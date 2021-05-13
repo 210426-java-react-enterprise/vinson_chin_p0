@@ -8,13 +8,26 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * User data access object to insert and update data into the database
+ * @author Vinson Chin
+ *
+ */
 public class UserDAO {
 
+    /**
+     * Prepares a statement to insert user data into the database
+     *
+     * @param conn
+     * @param newUser
+     * @return
+     */
     public AppUser save(Connection conn, AppUser newUser) {
 
         try {
 
-            String sqlInsertUser = "insert into project0.users (username , password , email , firstname , lastname , dob, phone) values (?,?,?,?,?,?,?)";
+            String sqlInsertUser = "insert into project0.users " +
+                    "(username , password , email , firstname , lastname , dob, phone) values (?,?,?,?,?,?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sqlInsertUser, new String[] { "id" });
             pstmt.setString(1,newUser.getUsername());
             pstmt.setString(2,newUser.getPassword());
@@ -40,11 +53,20 @@ public class UserDAO {
         return newUser;
     }
 
+    /**
+     * Prepares a statement to update user data in the database
+     *
+     * @param conn
+     * @param changedUser
+     * @return
+     */
     public AppUser update(Connection conn, AppUser changedUser) {
 
         try {
 
-            String sqlUpdateUser = "update project0.users set username = ? , password = ? , email = ? , firstname = ? , lastname = ? , dob = ?, phone = ? where id = ?";
+            String sqlUpdateUser = "update project0.users set " +
+                    "username = ? , password = ? , email = ? , firstname = ? , lastname = ? , dob = ?, phone = ? " +
+                    "where id = ?";
             PreparedStatement pstmt = conn.prepareStatement(sqlUpdateUser);
             pstmt.setString(1,changedUser.getUsername());
             pstmt.setString(2,changedUser.getPassword());
@@ -71,6 +93,13 @@ public class UserDAO {
         return changedUser;
     }
 
+    /**
+     * Prepares a statement to search the database for a username
+     *
+     * @param conn
+     * @param username
+     * @return
+     */
     public boolean isUsernameAvailable(Connection conn, String username) {
 
         try {
@@ -93,11 +122,20 @@ public class UserDAO {
 
     }
 
+    /**
+     * Prepares a statement to search the database for a username except for the current user
+     *
+     * @param conn
+     * @param username
+     * @param id
+     * @return
+     */
     public boolean isUpdatedUsernameAvailable(Connection conn, String username, int id) {
 
         try {
 
-            String sql = "select * from project0.users where username = ? except select * from project0.users where id = ?";
+            String sql =
+                    "select * from project0.users where username = ? except select * from project0.users where id = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, username);
             pstmt.setInt(2, id);
@@ -116,6 +154,13 @@ public class UserDAO {
 
     }
 
+    /**
+     * Prepares a statement to search the database for an email
+     *
+     * @param conn
+     * @param email
+     * @return
+     */
     public boolean isEmailAvailable(Connection conn, String email) {
 
         try {
@@ -137,11 +182,20 @@ public class UserDAO {
         return true;
     }
 
+    /**
+     * Prepares a statement to search the database for an email except for the current user
+     *
+     * @param conn
+     * @param email
+     * @param id
+     * @return
+     */
     public boolean isUpdatedEmailAvailable(Connection conn, String email, int id) {
 
         try {
 
-            String sql = "select * from project0.users where email = ? except select * from project0.users where id = ?";
+            String sql =
+                    "select * from project0.users where email = ? except select * from project0.users where id = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, email);
             pstmt.setInt(2,id);
@@ -159,6 +213,13 @@ public class UserDAO {
         return true;
     }
 
+    /**
+     * Prepares a statement to search the database for a username and password
+     *
+     * @param username
+     * @param password
+     * @return
+     */
     public AppUser findUserByUsernameAndPassword(String username, String password) {
 
         AppUser user = null;

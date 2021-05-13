@@ -2,6 +2,11 @@ package com.revature.vinson_chin_p0.models;
 
 import java.sql.Timestamp;
 
+/**
+ * Transaction class used for constructing a Transaction object
+ * @author Vinson Chin
+ *
+ */
 public class Transaction {
 
     private int id;
@@ -23,6 +28,10 @@ public class Transaction {
         this.id = id;
     }
 
+    /**
+     * Getter and Setter methods
+     *
+     */
     public int getId() {
         return id;
     }
@@ -63,6 +72,11 @@ public class Transaction {
         this.dateTime = dateTime;
     }
 
+    /**
+     * Method to create a string containing the information of the Transaction object
+     *
+     * @return
+     */
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Transaction{");

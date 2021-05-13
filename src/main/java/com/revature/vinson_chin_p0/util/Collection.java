@@ -1,5 +1,10 @@
 package com.revature.vinson_chin_p0.util;
 
+/**
+ * Simple interface for Collection
+ *
+ * @param <T>
+ */
 public interface Collection<T> {
 
     int size();

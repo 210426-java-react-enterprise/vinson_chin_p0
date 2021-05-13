@@ -12,6 +12,11 @@ import java.io.IOException;
 
 import static com.revature.vinson_chin_p0.Driver.app;
 
+/**
+ * Register screen used for registering a user
+ * @author Vinson Chin
+ *
+ */
 public class RegisterScreen extends Screen {
 
     private UserService userService;
@@ -25,9 +30,21 @@ public class RegisterScreen extends Screen {
         this.router = router;
     }
 
+    /**
+     * Render used with passing in current user
+     * Not used on this screen
+     *
+     * @param currentUser
+     */
     @Override
     public void render(AppUser currentUser) {}
 
+    /**
+     * Render used without passing anything
+     * Used on this screen
+     * Allows the creation of a new user
+     *
+     */
     public void render() {
 
         String firstName;
@@ -78,6 +95,13 @@ public class RegisterScreen extends Screen {
         }
     }
 
+    /**
+     * Render used with passing in current user and current account
+     * Not used on this screen
+     *
+     * @param currentUser
+     * @param currentAccount
+     */
     @Override
     public void render(AppUser currentUser, Account currentAccount) {}
 

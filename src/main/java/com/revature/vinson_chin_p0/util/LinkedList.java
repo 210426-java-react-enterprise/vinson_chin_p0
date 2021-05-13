@@ -3,6 +3,7 @@ package com.revature.vinson_chin_p0.util;
 /**
  * A simple implementation of a doubly linked-list structure that
  * does not accept null data.
+ * @author Vinson Chin
  *
  * @param <T>
  */
@@ -12,6 +13,11 @@ public class LinkedList<T> implements List<T>, Queue<T> {
     private Node<T> head;
     private Node<T> tail;
 
+    /**
+     * Add node with data to linked list
+     *
+     * @param data
+     */
     @Override
     public void add(T data) throws IllegalArgumentException {
 
@@ -59,18 +65,69 @@ public class LinkedList<T> implements List<T>, Queue<T> {
 
     }
 
-    // TODO: (Associate task) implement this method!
+    /**
+     * Look at data in first node
+     *
+     * @return
+     */
     @Override
     public T peek() {
-        return null;
+
+        if (head == null) {
+            return null;
+        }
+
+        return head.data;
     }
 
-    // TODO: (Associate task) implement this method!
+    /**
+     * Remove node with that contains data
+     *
+     * @param data
+     * @return
+     */
     @Override
     public T remove(T data) {
+
+        if (head == null) {
+            return null;
+        }
+
+        Node<T> current = head;
+        while (current != null) {
+            if (current.data == data) {
+                if (current == head) {
+                    head = head.nextNode;
+                    if (head != null) {
+                        head.prevNode = null;
+                    } else {
+                        tail = null;
+                    }
+                } else if ((current == tail) && (current != head)) {
+                    tail = tail.prevNode;
+                    tail.nextNode = null;
+                } else {
+                    Node<T> temp = current.prevNode;
+                    current.prevNode.nextNode = current.nextNode;
+                    current.nextNode.prevNode = temp;
+                }
+                size--;
+                return null;
+            } else {
+                current = current.nextNode;
+            }
+        }
+
         return null;
+
     }
 
+    /**
+     * Returns data at index
+     *
+     * @param index
+     * @return
+     */
     @Override
     public T get(int index) {
 
@@ -89,17 +146,45 @@ public class LinkedList<T> implements List<T>, Queue<T> {
         return null;
     }
 
-    // TODO: (Associate task) implement this method!
+    /**
+     * Returns true is linked list has a node with data
+     *
+     * @param data
+     * @return
+     */
     @Override
     public boolean contains(T data) {
+
+        if (head == null) {
+            return false;
+        }
+
+        Node<T> current = head;
+        while (current != null) {
+            if (current.data == data) {
+                return true;
+            } else {
+                current = current.nextNode;
+            }
+        }
         return false;
     }
 
+    /**
+     * Returns size of linked list
+     *
+     * @return
+     */
     @Override
     public int size() {
         return size;
     }
 
+    /**
+     * Static nested node class for linked list.
+     *
+     * @param <T>
+     */
     private static class Node<T> {
 
         T data;

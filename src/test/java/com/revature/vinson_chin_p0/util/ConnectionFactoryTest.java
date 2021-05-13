@@ -6,6 +6,11 @@ import org.junit.Test;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Test for Connection Factory
+ *
+ */
+
 public class ConnectionFactoryTest {
 
     @Test

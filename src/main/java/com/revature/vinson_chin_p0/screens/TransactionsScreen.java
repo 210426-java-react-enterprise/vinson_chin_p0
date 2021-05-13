@@ -9,6 +9,11 @@ import com.revature.vinson_chin_p0.util.ScreenRouter;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+/**
+ * Transactions screen used for viewing transactions for current account
+ * @author Vinson Chin
+ *
+ */
 public class TransactionsScreen extends Screen {
 
     BufferedReader consoleReader;
@@ -21,14 +26,33 @@ public class TransactionsScreen extends Screen {
         this.router = router;
     }
 
+    /**
+     * Render used with passing in current user
+     * Not used on this screen
+     *
+     * @param currentUser
+     */
     @Override
     public void render(AppUser currentUser) {
     }
 
+    /**
+     * Render used without passing anything
+     * Not used on this screen
+     *
+     */
     @Override
     public void render() {
     }
 
+    /**
+     * Render used with passing in current user and current account
+     * Used on this screen
+     * Displays account transactions and allows navigation to other screens
+     *
+     * @param currentUser
+     * @param currentAccount
+     */
     @Override
     public void render(AppUser currentUser, Account currentAccount) {
 

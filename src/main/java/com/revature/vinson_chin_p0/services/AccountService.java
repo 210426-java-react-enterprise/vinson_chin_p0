@@ -9,12 +9,23 @@ import com.revature.vinson_chin_p0.util.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * AccountService class for validations and checking for exceptions
+ * @author Vinson Chin
+ *
+ */
 public class AccountService {
 
     private AccountDAO accountDao;
 
     public AccountService(AccountDAO accountDao) { this.accountDao = accountDao; }
 
+    /**
+     * Validates new account and sends to DAO
+     *
+     * @param newAccount
+     * @return
+     */
     public Account create(Account newAccount) throws InvalidRequestException, ResourcePersistenceException {
 
         if (!isAccountValid(newAccount)) {
@@ -38,6 +49,12 @@ public class AccountService {
 
     }
 
+    /**
+     * Validates updated account and sends to DAO
+     *
+     * @param changedAccount
+     * @return
+     */
     public Account update(Account changedAccount) throws InvalidRequestException, ResourcePersistenceException {
 
         if (!isAccountValid(changedAccount)) {
@@ -61,6 +78,12 @@ public class AccountService {
 
     }
 
+    /**
+     * Validates changes in balance and sends to DAO
+     *
+     * @param changedAccount
+     * @return
+     */
     public Account updateBalance(Account changedAccount) throws InvalidRequestException {
 
         if (!isAccountValid(changedAccount)) {
@@ -71,12 +94,19 @@ public class AccountService {
 
     }
 
+    /**
+     * Checks account for correct format
+     *
+     * @param account
+     * @return
+     */
     public boolean isAccountValid(Account account) {
         if (account == null) return false;
         if (account.getUserid() <= 0) return false;
         if (account.getBalance() < 0) return false;
         if (account.getAccountType() == null || account.getAccountType().trim().isEmpty()) return false;
-        if (account.getName() == null || account.getName().trim().isEmpty() || account.getName().length() > 255) return false;
+        if (account.getName() == null || account.getName().trim().isEmpty() || account.getName().length() > 255)
+            return false;
         return true;
     }
 }

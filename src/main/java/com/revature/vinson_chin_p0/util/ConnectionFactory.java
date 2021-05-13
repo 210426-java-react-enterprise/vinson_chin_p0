@@ -7,6 +7,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * Singleton class for connecting to database
+ *
+ */
 public class ConnectionFactory {
 
     private static ConnectionFactory connectionFactory;

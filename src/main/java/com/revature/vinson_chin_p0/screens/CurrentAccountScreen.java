@@ -12,7 +12,11 @@ import com.revature.vinson_chin_p0.util.ScreenRouter;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-
+/**
+ * Current account screen used for viewing information, changing balance, and navigating to transactions
+ * @author Vinson Chin
+ *
+ */
 public class CurrentAccountScreen extends Screen {
 
     BufferedReader consoleReader;
@@ -21,7 +25,11 @@ public class CurrentAccountScreen extends Screen {
     AccountDAO accountDao;
     TransactionService transactionService;
 
-    public CurrentAccountScreen(BufferedReader consoleReader, ScreenRouter router, AccountService accountService, AccountDAO accountDao, TransactionService transactionService) {
+    public CurrentAccountScreen(BufferedReader consoleReader,
+                                ScreenRouter router,
+                                AccountService accountService,
+                                AccountDAO accountDao,
+                                TransactionService transactionService) {
         super("CurrentAccountScreen", "/account");
         this.consoleReader = consoleReader;
         this.router = router;
@@ -30,12 +38,31 @@ public class CurrentAccountScreen extends Screen {
         this.transactionService = transactionService;
     }
 
+    /**
+     * Render used with passing in current user
+     * Not used on this screen
+     *
+     * @param currentUser
+     */
     @Override
     public void render(AppUser currentUser) {}
 
+    /**
+     * Render used without passing anything
+     * Not used on this screen
+     *
+     */
     @Override
     public void render() {}
 
+    /**
+     * Render used with passing in current user and current account
+     * Used on this screen
+     * Allows users to change balance in account and navigation to other screens
+     *
+     * @param currentUser
+     * @param currentAccount
+     */
     @Override
     public void render(AppUser currentUser, Account currentAccount) {
 

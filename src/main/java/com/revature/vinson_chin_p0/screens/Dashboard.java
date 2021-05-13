@@ -7,8 +7,11 @@ import com.revature.vinson_chin_p0.util.ScreenRouter;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-import static com.revature.vinson_chin_p0.Driver.app;
-
+/**
+ * Dashboard used for navigating to accounts or user information
+ * @author Vinson Chin
+ *
+ */
 public class Dashboard extends Screen {
 
     private BufferedReader consoleReader;
@@ -20,6 +23,13 @@ public class Dashboard extends Screen {
         this.router = router;
     }
 
+    /**
+     * Render used with passing in current user
+     * Used on this screen
+     * Allows navigation to other screens and logging out
+     *
+     * @param currentUser
+     */
     @Override
     public void render(AppUser currentUser) {
 
@@ -57,9 +67,21 @@ public class Dashboard extends Screen {
         }
     }
 
+    /**
+     * Render used without passing anything
+     * Not used on this screen
+     *
+     */
     @Override
     public void render() {}
 
+    /**
+     * Render used with passing in current user and current account
+     * Not used on this screen
+     *
+     * @param currentUser
+     * @param currentAccount
+     */
     @Override
     public void render(AppUser currentUser, Account currentAccount) {}
 }

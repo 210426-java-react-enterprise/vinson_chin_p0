@@ -8,6 +8,11 @@ import com.revature.vinson_chin_p0.util.ScreenRouter;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+/**
+ * Accounts screen used for viewing all accounts and navigating to a specific account
+ * @author Vinson Chin
+ *
+ */
 public class AccountsScreen extends Screen {
 
     private AccountDAO accountDao = new AccountDAO();
@@ -20,6 +25,13 @@ public class AccountsScreen extends Screen {
         this.router = router;
     }
 
+    /**
+     * Render used with passing in current user
+     * Used on this screen
+     * Displays all accounts for user and allows navigation to other screens
+     *
+     * @param currentUser
+     */
     @Override
     public void render(AppUser currentUser) {
 
@@ -63,11 +75,23 @@ public class AccountsScreen extends Screen {
         }
     }
 
+    /**
+     * Render used without passing anything
+     * Not used on this screen
+     *
+     */
     @Override
     public void render() {
 
     }
 
+    /**
+     * Render used with passing in current user and current account
+     * Not used on this screen
+     *
+     * @param currentUser
+     * @param currentAccount
+     */
     @Override
     public void render(AppUser currentUser, Account currentAccount) {}
 }

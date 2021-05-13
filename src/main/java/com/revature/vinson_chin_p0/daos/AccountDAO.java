@@ -8,13 +8,26 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Account data access object used for inserting and updating data in the database
+ * @author Vinson Chin
+ *
+ */
 public class AccountDAO {
 
+    /**
+     * Prepares a statement to insert account data into the database
+     *
+     * @param conn
+     * @param newAccount
+     * @return
+     */
     public Account save(Connection conn, Account newAccount) {
 
         try {
 
-            String sqlInsertUser = "insert into project0.accounts (userid, balance, accounttype, name) values (?,?,?,?)";
+            String sqlInsertUser =
+                    "insert into project0.accounts (userid, balance, accounttype, name) values (?,?,?,?)";
             PreparedStatement pstmt = conn.prepareStatement(sqlInsertUser, new String[] { "id" });
             pstmt.setInt(1,newAccount.getUserid());
             pstmt.setDouble(2,newAccount.getBalance());
@@ -37,6 +50,13 @@ public class AccountDAO {
         return newAccount;
     }
 
+    /**
+     * Prepares a statement to update account data for current account
+     *
+     * @param conn
+     * @param changedAccount
+     * @return
+     */
     public Account update(Connection conn, Account changedAccount) {
 
         try {
@@ -63,6 +83,12 @@ public class AccountDAO {
         return changedAccount;
     }
 
+    /**
+     * Prepares a statement to update balance for current account
+     *
+     * @param changedAccount
+     * @return
+     */
     public Account updateBalance(Account changedAccount) {
 
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
@@ -88,6 +114,13 @@ public class AccountDAO {
         return changedAccount;
     }
 
+    /**
+     * Prepares a statement to search the database for a name for current user
+     *
+     * @param conn
+     * @param name
+     * @return
+     */
     public boolean isNameAvailable(Connection conn, String name) {
 
         try {
@@ -110,11 +143,20 @@ public class AccountDAO {
 
     }
 
+    /**
+     * Prepares a statement to search the database for a name for the current user except current account
+     *
+     * @param conn
+     * @param name
+     * @param id
+     * @return
+     */
     public boolean isUpdatedNameAvailable(Connection conn, String name, int id) {
 
         try {
 
-            String sql = "select * from project0.accounts where name = ? except select * from project0.accounts where id = ?";
+            String sql =
+                    "select * from project0.accounts where name = ? except select * from project0.accounts where id = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, name);
             pstmt.setInt(2, id);
@@ -133,13 +175,21 @@ public class AccountDAO {
 
     }
 
+    /**
+     * Prepares a statement to search for all other accounts for user except current account
+     *
+     * @param userId
+     * @param id
+     * @return
+     */
     public Account[] findOtherAccounts(int userId, int id) {
 
         Account[] accounts = new Account[50];
 
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
-            String sql = "select * from project0.accounts where userid = ? except select * from project0.accounts where id = ?";
+            String sql =
+                    "select * from project0.accounts where userid = ? except select * from project0.accounts where id = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, userId);
             pstmt.setInt(2, id);
@@ -165,6 +215,12 @@ public class AccountDAO {
 
     }
 
+    /**
+     * Prepares a statement to search for all accounts for user
+     *
+     * @param userId
+     * @return
+     */
     public Account[] findAccounts(int userId) {
 
         Account[] accounts = new Account[50];

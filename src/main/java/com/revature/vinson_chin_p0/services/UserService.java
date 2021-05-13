@@ -10,6 +10,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
 
+/**
+ * UserService class for validations and checking for exceptions
+ * @author Vinson Chin
+ *
+ */
 public class UserService {
 
     private UserDAO userDao;
@@ -18,6 +23,12 @@ public class UserService {
         this.userDao = userDao;
     }
 
+    /**
+     * Validates new user and sends to DAO
+     *
+     * @param newUser
+     * @return
+     */
     public AppUser register(AppUser newUser) throws InvalidRequestException, ResourcePersistenceException{
 
         if (!isUserValid(newUser)) {
@@ -45,6 +56,12 @@ public class UserService {
 
     }
 
+    /**
+     * Validates updated information for current user and sends to DAO
+     *
+     * @param changedUser
+     * @return
+     */
     public AppUser update(AppUser changedUser) throws InvalidRequestException, ResourcePersistenceException {
 
         if (!isUserValid(changedUser)) {
@@ -71,14 +88,26 @@ public class UserService {
 
     }
 
+    /**
+     * Checks to see if user is in correct format
+     *
+     * @param user
+     * @return
+     */
     public boolean isUserValid(AppUser user) {
         if (user == null) return false;
-        if (user.getUsername() == null || user.getUsername().trim().isEmpty() || user.getUsername().length() > 20) return false;
-        if (user.getPassword() == null || user.getPassword().trim().isEmpty() || user.getPassword().length() > 255) return false;
-        if (user.getEmail() == null || user.getEmail().trim().isEmpty() || user.getEmail().length() > 255 || !Pattern.matches("[a-zA-Z].*@[a-zA-Z]+[.][a-zA-Z]+", user.getEmail())) return false;
-        if (user.getFirstName() == null || user.getFirstName().trim().isEmpty() || user.getFirstName().length() > 25) return false;
-        if (user.getLastName() == null || user.getLastName().trim().isEmpty() || user.getLastName().length() > 25) return false;
-        if (user.getDob() == null || user.getDob().trim().isEmpty() || user.getDob().length() > 10 || !Pattern.matches("\\d{4}-\\d\\d-\\d\\d", user.getDob())) return false;
+        if (user.getUsername() == null || user.getUsername().trim().isEmpty() || user.getUsername().length() > 20)
+            return false;
+        if (user.getPassword() == null || user.getPassword().trim().isEmpty() || user.getPassword().length() > 255)
+            return false;
+        if (user.getEmail() == null || user.getEmail().trim().isEmpty() || user.getEmail().length() > 255 ||
+                !Pattern.matches("[a-zA-Z].*@[a-zA-Z]+[.][a-zA-Z]+", user.getEmail())) return false;
+        if (user.getFirstName() == null || user.getFirstName().trim().isEmpty() || user.getFirstName().length() > 25)
+            return false;
+        if (user.getLastName() == null || user.getLastName().trim().isEmpty() || user.getLastName().length() > 25)
+            return false;
+        if (user.getDob() == null || user.getDob().trim().isEmpty() || user.getDob().length() > 10 ||
+                !Pattern.matches("\\d{4}-\\d\\d-\\d\\d", user.getDob())) return false;
         if (user.getPhone() <= 0) return false;
         return true;
     }

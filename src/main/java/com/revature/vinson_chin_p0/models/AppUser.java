@@ -1,5 +1,10 @@
 package com.revature.vinson_chin_p0.models;
 
+/**
+ * AppUser class used for constructing an AppUser object
+ * @author Vinson Chin
+ *
+ */
 public class AppUser {
 
     private int id;
@@ -15,7 +20,13 @@ public class AppUser {
         super();
     }
 
-    public AppUser(String username, String password, String email, String firstName, String lastName, String dob, long phone) {
+    public AppUser(String username,
+                   String password,
+                   String email,
+                   String firstName,
+                   String lastName,
+                   String dob,
+                   long phone) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -25,11 +36,22 @@ public class AppUser {
         this.phone = phone;
     }
 
-    public AppUser(int id, String username, String password, String email, String firstName, String lastName, String dob, long phone) {
+    public AppUser(int id,
+                   String username,
+                   String password,
+                   String email,
+                   String firstName,
+                   String lastName,
+                   String dob,
+                   long phone) {
         this(username, password, email, firstName, lastName, dob, phone);
         this.id = id;
     }
 
+    /**
+     * Getters and Setters
+     *
+     */
     public int getId() {
         return id;
     }
@@ -94,10 +116,11 @@ public class AppUser {
         this.phone = phone;
     }
 
-//    public String toFileString() {
-//        return String.format("%s;%s;%s;%s;%s;%s;%l", username, password, email, firstName, lastName, dob, phone);
-//    }
-
+    /**
+     * Method to create a string containing the information of the AppUser object
+     *
+     * @return
+     */
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("AppUser{");

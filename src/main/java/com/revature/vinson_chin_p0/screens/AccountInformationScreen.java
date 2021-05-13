@@ -11,6 +11,11 @@ import com.revature.vinson_chin_p0.util.ScreenRouter;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+/**
+ * Account information screen used for changing account information
+ * @author Vinson Chin
+ *
+ */
 public class AccountInformationScreen extends Screen{
 
     BufferedReader consoleReader;
@@ -24,12 +29,31 @@ public class AccountInformationScreen extends Screen{
         this.accountService = accountService;
     }
 
+    /**
+     * Render used with passing in current user
+     * Not used on this screen
+     *
+     * @param currentUser
+     */
     @Override
     public void render(AppUser currentUser) {}
 
+    /**
+     * Render used without passing anything
+     * Not used on this screen
+     *
+     */
     @Override
     public void render() {}
 
+    /**
+     * Render used with passing in current user and current account
+     * Used on this screen
+     * Allows users to view and change account information
+     *
+     * @param currentUser
+     * @param currentAccount
+     */
     @Override
     public void render(AppUser currentUser, Account currentAccount) {
 

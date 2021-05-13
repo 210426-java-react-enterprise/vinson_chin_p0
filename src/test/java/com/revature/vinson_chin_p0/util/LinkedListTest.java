@@ -2,6 +2,11 @@ package com.revature.vinson_chin_p0.util;
 
 import org.junit.*;
 
+/**
+ * Tests for LinkedList
+ *
+ */
+
 public class LinkedListTest {
 
     private LinkedList<String> sut;
@@ -70,27 +75,49 @@ public class LinkedListTest {
         Assert.assertEquals(expectedSize, actualSize);
     }
 
-    // TODO: (Associate task) implement this method!
     @Test
     public void test_peekWithEmptyList() {
 
+        String actualResult = sut.peek();
+
+        Assert.assertNull(actualResult);
+
     }
 
-    // TODO: (Associate task) implement this method!
     @Test
     public void test_peekWithPopulatedList() {
 
+        sut.add("test data 1");
+        sut.add("test data 2");
+        String expectedResult = "test data 1";
+        int expectedSize = 2;
+
+        String actualResult = sut.peek();
+
+        int actualSize = sut.size();
+        Assert.assertEquals(expectedResult, actualResult);
+        Assert.assertEquals(expectedSize, actualSize);
+
     }
 
-    // TODO: (Associate task) implement this method!
     @Test
     public void test_containsWithEmptyList() {
 
+        Boolean actualResult = sut.contains("test data 1");
+
+        Assert.assertEquals(false, actualResult);
+
     }
 
-    // TODO: (Associate task) implement this method!
     @Test
     public void test_containsWithPopulatedList() {
+
+        sut.add("test data 1");
+        sut.add("test data 2");
+
+        Boolean actualResult = sut.contains("test data 2");
+
+        Assert.assertEquals(true, actualResult);
 
     }
 

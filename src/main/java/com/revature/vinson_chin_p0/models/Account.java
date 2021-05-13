@@ -1,5 +1,10 @@
 package com.revature.vinson_chin_p0.models;
 
+/**
+ * Account class used for constructing an Account object
+ * @author Vinson Chin
+ *
+ */
 public class Account {
 
     private int id;
@@ -24,6 +29,10 @@ public class Account {
         this.id = id;
     }
 
+    /**
+     * Getters and Setters
+     *
+     */
     public int getId() {
         return id;
     }
@@ -64,6 +73,11 @@ public class Account {
         this.name = name;
     }
 
+    /**
+     * Method to create a string containing the information of the Account object
+     *
+     * @return
+     */
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Account{");

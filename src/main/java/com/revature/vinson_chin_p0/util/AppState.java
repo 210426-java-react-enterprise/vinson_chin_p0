@@ -11,6 +11,11 @@ import com.revature.vinson_chin_p0.services.UserService;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+/**
+ * Class used to determine if application is running and where to navigate to.
+ * @author Vinson Chin
+ *
+ */
 public class AppState {
 
     private BufferedReader consoleReader;

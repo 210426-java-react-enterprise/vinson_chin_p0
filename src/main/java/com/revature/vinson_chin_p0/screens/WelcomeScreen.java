@@ -8,6 +8,11 @@ import static com.revature.vinson_chin_p0.Driver.app;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+/**
+ * Welcome screen used for navigating to login or register screens
+ * @author Vinson Chin
+ *
+ */
 public class WelcomeScreen extends Screen {
 
     private BufferedReader consoleReader;
@@ -19,9 +24,21 @@ public class WelcomeScreen extends Screen {
         this.router = router;
     }
 
+    /**
+     * Render used with passing in current user
+     * Not used on this screen
+     *
+     * @param currentUser
+     */
     @Override
     public void render(AppUser currentUser) {}
 
+    /**
+     * Render used without passing anything
+     * Used on this screen
+     * Allows navigation to other screens
+     *
+     */
     @Override
     public void render() {
 
@@ -59,6 +76,13 @@ public class WelcomeScreen extends Screen {
 
     }
 
+    /**
+     * Render used with passing in current user and current account
+     * Not used on this screen
+     *
+     * @param currentUser
+     * @param currentAccount
+     */
     @Override
     public void render(AppUser currentUser, Account currentAccount) {}
 }

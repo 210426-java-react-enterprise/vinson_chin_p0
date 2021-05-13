@@ -1,5 +1,10 @@
 package com.revature.vinson_chin_p0.util;
 
+/**
+ * Simple interface List.
+ *
+ * @param <T>
+ */
 public interface List<T> extends Collection<T> {
 
     T get(int index);

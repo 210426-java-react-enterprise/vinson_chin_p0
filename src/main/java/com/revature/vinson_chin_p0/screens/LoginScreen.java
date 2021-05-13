@@ -8,6 +8,11 @@ import com.revature.vinson_chin_p0.util.ScreenRouter;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+/**
+ * Login screen used for logging into user
+ * @author Vinson Chin
+ *
+ */
 public class LoginScreen extends Screen {
 
     private UserDAO userDao = new UserDAO();
@@ -20,6 +25,12 @@ public class LoginScreen extends Screen {
         this.router = router;
     }
 
+    /**
+     * Render used without passing anything
+     * Used on this screen
+     * Allows users to login and navigation to other screens
+     *
+     */
     public void render() {
 
         try {
@@ -76,9 +87,22 @@ public class LoginScreen extends Screen {
         }
     }
 
+    /**
+     * Render used with passing in current user and current account
+     * Not used on this screen
+     *
+     * @param currentUser
+     * @param currentAccount
+     */
     @Override
     public void render(AppUser currentUser, Account currentAccount) {}
 
+    /**
+     * Render used with passing in current user
+     * Not used on this screen
+     *
+     * @param currentUser
+     */
     @Override
     public void render(AppUser currentUser) {}
 }

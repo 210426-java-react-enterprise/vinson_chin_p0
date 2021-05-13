@@ -8,13 +8,26 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Transaction data access object used to insert data into the database
+ * @author Vinson Chin
+ *
+ */
 public class TransactionDAO {
 
+    /**
+     * Prepares a statement to insert transaction data into the database
+     *
+     * @param newTransaction
+     * @return
+     */
     public Transaction save(Transaction newTransaction) {
 
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
-            String sqlInsertUser = "insert into project0.transactions (accountid, amount, transactiontype, datetime) values (?,?,?,(select current_timestamp))";
+            String sqlInsertUser =
+                    "insert into project0.transactions (accountid, amount, transactiontype, datetime) " +
+                            "values (?,?,?,(select current_timestamp))";
             PreparedStatement pstmt = conn.prepareStatement(sqlInsertUser, new String[] { "id" });
             pstmt.setInt(1, newTransaction.getAccountId());
             pstmt.setDouble(2,newTransaction.getAmount());
@@ -36,6 +49,12 @@ public class TransactionDAO {
         return newTransaction;
     }
 
+    /**
+     * Prepares a statement to search the database for all transactions for current account
+     *
+     * @param accountId
+     * @return
+     */
     public Transaction[] findTransactions(int accountId) {
 
         Transaction[] transactions = new Transaction[50];
